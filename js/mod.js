@@ -1,6 +1,6 @@
 let modInfo = {
-	name: "The Celestial Tree",
-	id: "TCT",
+	name: "The Universe Tree",
+	id: "TUT",
 	author: "Xav",
 	pointsName: "Cosmic Matter",
 	modFiles: ["layers.js", "tree.js"],
@@ -18,9 +18,9 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v0.1</h3><br>
+		- Just Launched, <br>
+		- Current Endgame: Nuthin lol`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -42,7 +42,10 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(0)
+	if (hasUpgrade('p', 11)) gain = gain.add(3)
+	if (hasUpgrade('p', 12)) gain = gain.add(7)
+	if (hasUpgrade('p', 21)) gain = gain.times(upgradeEffect('p', 21))
 	return gain
 }
 
