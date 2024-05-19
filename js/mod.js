@@ -43,9 +43,12 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
+	// Start of Gravity Tree Upgrades -----------------------------------------------------------
 	if (hasUpgrade('p', 11)) gain = gain.add(3)
 	if (hasUpgrade('p', 12)) gain = gain.add(7)
 	if (hasUpgrade('p', 21)) gain = gain.times(upgradeEffect('p', 21))
+	if (hasUpgrade('p', 22)) gain = gain.times(upgradeEffect('p', 22))
+	// Start of Asteroid Upgrades ---------------------------------------------------------------
 	return gain
 }
 

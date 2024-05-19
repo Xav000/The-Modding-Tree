@@ -3,14 +3,14 @@ var themes = ["default", "aqua"]
 
 var colors = {
 	default: {
-		1: "#ffffff",//Branch color 1
-		2: "#bfbfbf",//Branch color 2
-		3: "#7f7f7f",//Branch color 3
-		color: "#dfdfdf",
+		1: "#ffffff",
+		2: "#2d2936",
+		3: "#4c3f63",
+		color: "#443761",
 		points: "#ffffff",
-		locked: "#bf8f8f",
-		background: "#0f0f0f",
-		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		locked: "#c4a7b3",
+		background: "#171321",
+		background_tooltip: "rgba(26, 20, 36, 0.75)",
 	},
 	aqua: {
 		1: "#bfdfff",
