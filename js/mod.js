@@ -19,8 +19,8 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1</h3><br>
-		- Just Launched, <br>
-		- Current Endgame: Nuthin lol`
+		- Just Launched <br>
+		- Current Endgame: Googol Cosmic Matter`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -49,7 +49,12 @@ function getPointGen() {
 	if (hasUpgrade('p', 21)) gain = gain.times(upgradeEffect('p', 21))
 	if (hasUpgrade('p', 22)) gain = gain.times(upgradeEffect('p', 22))
 	if (hasUpgrade('p', 24)) gain = gain.times(3)
+	if (hasUpgrade('p', 31)) gain = gain.times(2)
+	if (hasUpgrade('p', 32)) gain = gain.times(10)
 	// Start of Asteroid Upgrades ---------------------------------------------------------------
+	if (hasMilestone('a', 1)) gain = gain.add(50)
+	if (hasMilestone('a', 2)) gain = gain.add(100)
+	if (hasMilestone('a', 3)) gain = gain.add(150)
 	return gain
 }
 
@@ -63,7 +68,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("e100"))
 }
 
 
@@ -77,7 +82,7 @@ var backgroundStyle = {
 
 // You can change this if you have things that can be messed up by long tick lengths
 function maxTickLength() {
-	return(3600) // Default is 1 hour which is just arbitrarily large
+	return(30) // Default is 1 hour which is just arbitrarily large
 }
 
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
