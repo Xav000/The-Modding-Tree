@@ -52,25 +52,30 @@ addLayer("p", {
 
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            onPurchase() {
+                
+            }
         },
         21: {
             title: "Dark Matter Entropy",
-            description: "Dark matter is getting more Chaotic because of gravity, Cosmic matter gain is boosted by Gravity",
+            description: "Dark matter is getting more chaotic because of gravity, Cosmic matter gain is boosted by Gravity",
             tooltip: "Diminishing Returns",
             cost: new Decimal(20),
             effect() {
                 return player[this.layer].points.add(1).pow(0.7)/10 + 1
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            unlocked() {return hasUpgrade("p",13) },
         },
         22: {
             title: "Heavy Dark Matter",
-            description: "Dark matter is affected by Gravity, Making more Cosmic matter enter your universe",
+            description: "Dark Matter , Making more Cosmic matter enter your universe",
             tooltip: "Boosts Cosmic matter Based on Cosmic matter",
             cost: new Decimal(50),
             effect() {
                 return player.points.add(1).pow(0.1) + 1
             },
+            unlocked() {return hasUpgrade("p",21) },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         23: {
@@ -81,6 +86,21 @@ addLayer("p", {
             effect() {
                 return player.points.add(1).pow(1)/100 + 1
             },
+            unlocked() {return hasUpgrade("p",13) },
+        },
+        24: {
+            title: "Cosmic Gravity",
+            description: "Cosmic Matter in cosmos start being affected by the Universe's Gravity",
+            tooltip: "3x Cosmic Matter",
+            cost: new Decimal(500),
+            unlocked() {return hasUpgrade("p",23) },
+        },
+        31: {
+            title: "",
+            description: "Unlock",
+            tooltip: "3x Cosmic Matter",
+            cost: new Decimal(500),
+            unlocked() {return hasUpgrade("p",23) },
         },
     },
 })
@@ -93,12 +113,12 @@ addLayer("a", {
 		points: new Decimal(0),
     }},
     color: "#404040",
-    requires: new Decimal(e7), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1000000), // Can be a function that takes requirement increases into account
     resource: "Asteroid", // Name of prestige currency
     baseResource: "Cosmic Matter", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.9, // Prestige currency exponent
+    exponent: 0.8, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
 

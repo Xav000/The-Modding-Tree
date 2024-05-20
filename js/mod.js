@@ -48,6 +48,7 @@ function getPointGen() {
 	if (hasUpgrade('p', 12)) gain = gain.add(7)
 	if (hasUpgrade('p', 21)) gain = gain.times(upgradeEffect('p', 21))
 	if (hasUpgrade('p', 22)) gain = gain.times(upgradeEffect('p', 22))
+	if (hasUpgrade('p', 24)) gain = gain.times(3)
 	// Start of Asteroid Upgrades ---------------------------------------------------------------
 	return gain
 }

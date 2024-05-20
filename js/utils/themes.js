@@ -6,7 +6,7 @@ var colors = {
 		1: "#ffffff",
 		2: "#2d2936",
 		3: "#4c3f63",
-		color: "#443761",
+		color: "#8e7ac2",
 		points: "#ffffff",
 		locked: "#c4a7b3",
 		background: "#171321",
