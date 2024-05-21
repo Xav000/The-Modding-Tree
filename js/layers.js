@@ -7,9 +7,19 @@ addLayer("p", {
 		points: new Decimal(0),
     }},
     color: "#2B3C65",
+    // --------------------------------
+    // --------------------------------
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Gravity", // Name of prestige currency
     baseResource: "Cosmic Matter", // Name of resource prestige is based on
+    /*onReset(){
+        let keep = []
+        // declare keep
+        
+        if(hasUpgrade("a", 12))keep.push(11,12,13)
+      
+        layerDataReset(this.layer, keep)
+     },*/
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.3, // Prestige currency exponent
@@ -18,6 +28,7 @@ addLayer("p", {
         if (hasUpgrade('p', 13)) mult = mult.times(upgradeEffect('p', 13))
         if (hasUpgrade('p', 31)) mult = mult.times(2)
         if (hasUpgrade('p', 32)) mult = mult.times(0.7)
+        if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -48,12 +59,12 @@ addLayer("p", {
             cost: new Decimal(10),
             effect() {
             if (hasUpgrade('p', 23))
-                return player.points.add(1).pow(0.85)/1000 + 1
+                return player.points.add(1).pow(0.8)/1000 + 1
             else
                 return player.points.add(1).pow(0.7)/1000 + 1
 
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x Gravity" }, // Add formatting to the effect
         },
         21: {
             title: "Dark Matter Entropy",
@@ -63,7 +74,7 @@ addLayer("p", {
             effect() {
                 return player[this.layer].points.add(1).pow(0.8)/10 + 1
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x Cosmic Matter" }, // Add formatting to the effect
             unlocked() {return hasUpgrade("p",13) },
         },
         22: {
@@ -75,12 +86,12 @@ addLayer("p", {
                 return player.points.add(1).pow(0.1) + 1
             },
             unlocked() {return hasUpgrade("p",21) },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x Cosmic Matter" }, // Add formatting to the effect
         },
         23: {
             title: "Stronger Gravity",
             description: "Gives a bigger boost to gravity's Basics, allows you to make small cosmic bodies.",
-            tooltip: "Exponent = 0.85",
+            tooltip: "Exponent = 0.8",
             cost: new Decimal(70),
             unlocked() {return hasUpgrade("p",13) },
         },
@@ -137,27 +148,21 @@ addLayer("a", {
     layerShown(){return hasUpgrade("p",23) },
     upgrades: {
         11: {
-            title: "Astral Mannerism",
-            description: "Unlock Asteroid Buyables",
-            tooltip: "Start gaining cosmic matter",
+            title: "Astral Mannerisms",
+            description: "Unlock Asteroid Buyables, Gravity gets boosted by asteroid",
+            tooltip: "Exponent = 0.5",
+            effect() {
+                return player[this.layer].points.add(1).pow(0.5)/4 + 1
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x Gravity" }, // Add formatting to the effect
             cost: new Decimal(1),
         },
-    },
-    milestones: {
-        1: {
-            requirementDescription: "1 Asteroid",
-            effectDescription: "+50 Cosmic Matter/s",
-            done() { return player.Asteroid = 1 }
-        },
-        2: {
-            requirementDescription: "2 Asteroids",
-            effectDescription: "+100 Cosmic Matter/s",
-            done() { return player.Asteroid = 2 }
-        },
-        3: {
-            requirementDescription: "3 Asteroids",
-            effectDescription: "+150 Cosmic Matter/s",
-            done() { return player.Asteroid = 3 }
+        21: {
+            title: "Universal memory",
+            description: "Write your current knowledge in asteroid's stone, saving some upgrades.",
+            tooltip: "Permanently saves the first row of Gravity upgrades",
+            cost: new Decimal(1),
+            unlocked() {return hasUpgrade("a",11) },
         },
     }
 })

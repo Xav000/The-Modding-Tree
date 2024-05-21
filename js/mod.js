@@ -42,7 +42,7 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(0)
+	let gain = new Decimal(100)
 	// Start of Gravity Tree Upgrades -----------------------------------------------------------
 	if (hasUpgrade('p', 11)) gain = gain.add(3)
 	if (hasUpgrade('p', 12)) gain = gain.add(7)
@@ -52,9 +52,6 @@ function getPointGen() {
 	if (hasUpgrade('p', 31)) gain = gain.times(2)
 	if (hasUpgrade('p', 32)) gain = gain.times(10)
 	// Start of Asteroid Upgrades ---------------------------------------------------------------
-	if (hasMilestone('a', 1)) gain = gain.add(50)
-	if (hasMilestone('a', 2)) gain = gain.add(100)
-	if (hasMilestone('a', 3)) gain = gain.add(150)
 	return gain
 }
 
