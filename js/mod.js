@@ -42,16 +42,20 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(100)
+	let gain = new Decimal(0)
+	
 	// Start of Gravity Tree Upgrades -----------------------------------------------------------
 	if (hasUpgrade('p', 11)) gain = gain.add(3)
 	if (hasUpgrade('p', 12)) gain = gain.add(7)
+	if (hasUpgrade('p', 49)) gain = gain.exp(2)
 	if (hasUpgrade('p', 21)) gain = gain.times(upgradeEffect('p', 21))
 	if (hasUpgrade('p', 22)) gain = gain.times(upgradeEffect('p', 22))
 	if (hasUpgrade('p', 24)) gain = gain.times(3)
 	if (hasUpgrade('p', 31)) gain = gain.times(2)
 	if (hasUpgrade('p', 32)) gain = gain.times(10)
+	if (hasUpgrade('p', 33)) gain = gain.pow(1.1)
 	// Start of Asteroid Upgrades ---------------------------------------------------------------
+	if (hasUpgrade('a', 11)) gain = gain.times(upgradeEffect('a', 11))
 	return gain
 }
 
@@ -65,7 +69,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e100"))
+	return player.points.gte(new Decimal("ee100"))
 }
 
 
