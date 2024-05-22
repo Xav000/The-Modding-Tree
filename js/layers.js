@@ -1,4 +1,3 @@
-
 console.log("Please Don't cheat, what about a cool challenge instead? There's an always invisible layer called 'Curium', It's never going to be used in the main game but let's see if you can make it visible")
 addLayer("p", {
     name: "Gravity", // This is optional, only used in a few places, If absent it just uses the layer id.
@@ -24,6 +23,7 @@ addLayer("p", {
         if (hasUpgrade('p', 31)) mult = mult.times(2)
         if (hasUpgrade('p', 32)) mult = mult.times(0.7)
         if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11))
+        if (hasUpgrade('a', 31)) mult = mult.times(10)
         //if (getBuyableAmount("a", 11).gte(1)) mult = mult.times(buyableEffect("a", 11))
         return mult
     },
@@ -35,6 +35,12 @@ addLayer("p", {
         {key: "g", description: "G: Reset Gravity Layer", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    infoboxes: {
+        lore: {
+            title: "Your universe",
+            body() { return "Your universe is currently" }, //(4 ⁄ 3) π r3
+        },
+    },
     upgrades: {
         11: {
             title: "Dark Matter",
@@ -117,21 +123,21 @@ addLayer("p", {
             description: "Unlocks Radiation, making cosmic matter move even faster",
             tooltip: "^1.1 Cosmic Matter",
             cost: new Decimal(30000),
-            unlocked() {return hasUpgrade("a",21) },
+            unlocked() {return hasUpgrade("a",21) && hasUpgrade("p", 32)},
         },
         41: {
             title: "Metals",
             description: "Cosmic Matter is now able to fuse into metals, which make asteroids way heavier",
             tooltip: "10x Asteroids, 'Astral mannerisms' Is better, Unlock an Asteroid Upgrade",
             cost: new Decimal(50000),
-            unlocked() {return hasUpgrade("a",21, "p",33) },
+            unlocked() {return hasUpgrade("a",21) && hasUpgrade("p", 33)},
         },
         42: {
             title: "Eletronic Distribution",
             description: "Cosmic Matter is able to be modificated to generate more radiation",
             tooltip: "Unlock Asteroid Buyables",
             cost: new Decimal("5e6"),
-            unlocked() {return hasUpgrade("a",21, "p",41) },
+            unlocked() {return hasUpgrade("a",21) && hasUpgrade("p", 41)},
         },
     },
 })
@@ -163,7 +169,9 @@ addLayer("a", {
     hotkeys: [
         {key: "a", description: "A: Buy Max Asteroids", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return hasUpgrade("p",23)},
+    layerShown(){
+        return hasUpgrade("p",23),hasUpgrade("a",11)
+    },
     upgrades: {
         11: {
             title: "Astral Mannerisms",
@@ -190,7 +198,7 @@ addLayer("a", {
             description: "Makes asteroids smaller, but attracting more gravity",
             tooltip: "10x Gravity, 0.7x Asteroids",
             cost: new Decimal(30),
-            unlocked() {return hasUpgrade("p",41) },
+            unlocked() {return hasUpgrade("p",41),hasUpgrade("a",31) },
         },
     },
     buyables: {
